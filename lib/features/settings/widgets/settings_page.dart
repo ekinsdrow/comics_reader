@@ -1,5 +1,4 @@
 import 'package:comics_reader/common/assets/constants.dart';
-import 'package:comics_reader/common/assets/themes/themes.dart';
 import 'package:comics_reader/features/app/blocs/settings/settings_bloc.dart';
 import 'package:comics_reader/features/app/change_notifiers/settings_notifies.dart';
 import 'package:flutter/gestures.dart';

@@ -1,6 +1,6 @@
 import 'package:comics_reader/common/assets/constants.dart';
-import 'package:comics_reader/features/main/widgets/last_comicses.dart';
 import 'package:comics_reader/features/main/widgets/commands.dart';
+import 'package:comics_reader/features/main/widgets/last_comicses.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {

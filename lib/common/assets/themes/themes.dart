@@ -4,52 +4,52 @@ abstract class Themes {
   static get darkTheme => ThemeData.dark().copyWith(
         textTheme: const TextTheme(
           headline1: TextStyle(
-            fontSize: 50,
-          ),
-          headline2: TextStyle(
-            fontSize: 45,
-          ),
-          headline3: TextStyle(
-            fontSize: 40,
-          ),
-          headline4: TextStyle(
-            fontSize: 35,
-          ),
-          headline5: TextStyle(
             fontSize: 30,
           ),
+          headline2: TextStyle(
+            fontSize: 28,
+          ),
+          headline3: TextStyle(
+            fontSize: 26,
+          ),
+          headline4: TextStyle(
+            fontSize: 24,
+          ),
+          headline5: TextStyle(
+            fontSize: 22,
+          ),
           headline6: TextStyle(
-            fontSize: 25,
+            fontSize: 20,
           ),
         ),
       );
 
   static get lightTheme => ThemeData.light().copyWith(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.grey,
         ),
         textTheme: const TextTheme(
           headline1: TextStyle(
-            fontSize: 50,
-            color: Colors.grey,
-          ),
-          headline2: TextStyle(
-            fontSize: 45,
-            color: Colors.grey,
-          ),
-          headline3: TextStyle(
-            fontSize: 40,
-            color: Colors.grey,
-          ),
-          headline4: TextStyle(
-            fontSize: 35,
-          ),
-          headline5: TextStyle(
             fontSize: 30,
             color: Colors.grey,
           ),
+          headline2: TextStyle(
+            fontSize: 28,
+            color: Colors.grey,
+          ),
+          headline3: TextStyle(
+            fontSize: 26,
+            color: Colors.grey,
+          ),
+          headline4: TextStyle(
+            fontSize: 24,
+          ),
+          headline5: TextStyle(
+            fontSize: 22,
+            color: Colors.grey,
+          ),
           headline6: TextStyle(
-            fontSize: 25,
+            fontSize: 20,
             color: Colors.grey,
           ),
           bodyText1: TextStyle(

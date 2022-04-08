@@ -28,6 +28,10 @@ class _$AppRouter extends RootStackRouter {
     ComicsRoute.name: (routeData) {
       return AdaptivePage<dynamic>(
           routeData: routeData, child: const ComicsPage());
+    },
+    SettingsRoute.name: (routeData) {
+      return AdaptivePage<dynamic>(
+          routeData: routeData, child: const SettingsPage());
     }
   };
 
@@ -35,7 +39,8 @@ class _$AppRouter extends RootStackRouter {
   List<RouteConfig> get routes => [
         RouteConfig(InitialRoute.name, path: '/'),
         RouteConfig(MainRoute.name, path: '/main-page'),
-        RouteConfig(ComicsRoute.name, path: '/comics-page')
+        RouteConfig(ComicsRoute.name, path: '/comics-page'),
+        RouteConfig(SettingsRoute.name, path: '/settings-page')
       ];
 }
 
@@ -61,4 +66,12 @@ class ComicsRoute extends PageRouteInfo<void> {
   const ComicsRoute() : super(ComicsRoute.name, path: '/comics-page');
 
   static const String name = 'ComicsRoute';
+}
+
+/// generated route for
+/// [SettingsPage]
+class SettingsRoute extends PageRouteInfo<void> {
+  const SettingsRoute() : super(SettingsRoute.name, path: '/settings-page');
+
+  static const String name = 'SettingsRoute';
 }

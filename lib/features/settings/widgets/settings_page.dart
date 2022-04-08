@@ -2,8 +2,10 @@ import 'package:comics_reader/common/assets/constants.dart';
 import 'package:comics_reader/common/assets/themes/themes.dart';
 import 'package:comics_reader/features/app/blocs/settings/settings_bloc.dart';
 import 'package:comics_reader/features/app/change_notifiers/settings_notifies.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -112,6 +114,26 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   const Text('System'),
                 ],
+              ),
+              const SizedBox(
+                height: Constants.mediumPadding,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    const TextSpan(
+                      text: 'Developed by ',
+                    ),
+                    TextSpan(
+                      text: 'ekinsdrow',
+                      style: const TextStyle(
+                        color: Colors.blue,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => launch('https://github.com/ekinsdrow'),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

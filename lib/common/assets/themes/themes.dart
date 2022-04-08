@@ -1,8 +1,49 @@
 import 'package:flutter/material.dart';
 
 abstract class Themes {
-  static get darkTheme => ThemeData.dark();
-  static get lightTheme => ThemeData.light();
-}
+  static get darkTheme => ThemeData.dark().copyWith(
+        textTheme: const TextTheme(
+          headline1: TextStyle(
+            fontSize: 50,
+          ),
+          headline2: TextStyle(
+            fontSize: 45,
+          ),
+          headline3: TextStyle(
+            fontSize: 40,
+          ),
+          headline4: TextStyle(
+            fontSize: 35,
+          ),
+          headline5: TextStyle(
+            fontSize: 30,
+          ),
+          headline6: TextStyle(
+            fontSize: 25,
+          ),
+        ),
+      );
 
-abstract class Colors {}
+  static get lightTheme => ThemeData.light().copyWith(
+        textTheme: const TextTheme(
+          headline1: TextStyle(
+            fontSize: 50,
+          ),
+          headline2: TextStyle(
+            fontSize: 45,
+          ),
+          headline3: TextStyle(
+            fontSize: 40,
+          ),
+          headline4: TextStyle(
+            fontSize: 35,
+          ),
+          headline5: TextStyle(
+            fontSize: 30,
+          ),
+          headline6: TextStyle(
+            fontSize: 25,
+          ),
+        ),
+      );
+}

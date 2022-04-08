@@ -19,10 +19,13 @@ class InitialPage extends StatelessWidget {
             ],
           ),
         ),
-        child: const Scaffold(
+        child: Scaffold(
           body: SafeArea(
             child: Center(
-              child: Text("Comics Reader"),
+              child: Text(
+                "Comics Reader",
+                style: Theme.of(context).textTheme.headline1,
+              ),
             ),
           ),
         ),

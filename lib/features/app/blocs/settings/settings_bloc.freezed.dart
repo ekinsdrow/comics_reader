@@ -22,6 +22,10 @@ class _$SettingsEventTearOff {
       settings: settings,
     );
   }
+
+  _Get get() {
+    return const _Get();
+  }
 }
 
 /// @nodoc
@@ -29,43 +33,43 @@ const $SettingsEvent = _$SettingsEventTearOff();
 
 /// @nodoc
 mixin _$SettingsEvent {
-  Settings get settings => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Settings settings) update,
+    required TResult Function() get,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Settings settings)? update,
+    TResult Function()? get,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Settings settings)? update,
+    TResult Function()? get,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Update value) update,
+    required TResult Function(_Get value) get,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Update value)? update,
+    TResult Function(_Get value)? get,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Update value)? update,
+    TResult Function(_Get value)? get,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $SettingsEventCopyWith<SettingsEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -74,9 +78,6 @@ abstract class $SettingsEventCopyWith<$Res> {
   factory $SettingsEventCopyWith(
           SettingsEvent value, $Res Function(SettingsEvent) then) =
       _$SettingsEventCopyWithImpl<$Res>;
-  $Res call({Settings settings});
-
-  $SettingsCopyWith<$Res> get settings;
 }
 
 /// @nodoc
@@ -87,35 +88,14 @@ class _$SettingsEventCopyWithImpl<$Res>
   final SettingsEvent _value;
   // ignore: unused_field
   final $Res Function(SettingsEvent) _then;
-
-  @override
-  $Res call({
-    Object? settings = freezed,
-  }) {
-    return _then(_value.copyWith(
-      settings: settings == freezed
-          ? _value.settings
-          : settings // ignore: cast_nullable_to_non_nullable
-              as Settings,
-    ));
-  }
-
-  @override
-  $SettingsCopyWith<$Res> get settings {
-    return $SettingsCopyWith<$Res>(_value.settings, (value) {
-      return _then(_value.copyWith(settings: value));
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$UpdateCopyWith<$Res> implements $SettingsEventCopyWith<$Res> {
+abstract class _$UpdateCopyWith<$Res> {
   factory _$UpdateCopyWith(_Update value, $Res Function(_Update) then) =
       __$UpdateCopyWithImpl<$Res>;
-  @override
   $Res call({Settings settings});
 
-  @override
   $SettingsCopyWith<$Res> get settings;
 }
 
@@ -138,6 +118,13 @@ class __$UpdateCopyWithImpl<$Res> extends _$SettingsEventCopyWithImpl<$Res>
           : settings // ignore: cast_nullable_to_non_nullable
               as Settings,
     ));
+  }
+
+  @override
+  $SettingsCopyWith<$Res> get settings {
+    return $SettingsCopyWith<$Res>(_value.settings, (value) {
+      return _then(_value.copyWith(settings: value));
+    });
   }
 }
 
@@ -175,6 +162,7 @@ class _$_Update implements _Update {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Settings settings) update,
+    required TResult Function() get,
   }) {
     return update(settings);
   }
@@ -183,6 +171,7 @@ class _$_Update implements _Update {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Settings settings)? update,
+    TResult Function()? get,
   }) {
     return update?.call(settings);
   }
@@ -191,6 +180,7 @@ class _$_Update implements _Update {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Settings settings)? update,
+    TResult Function()? get,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -203,6 +193,7 @@ class _$_Update implements _Update {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Update value) update,
+    required TResult Function(_Get value) get,
   }) {
     return update(this);
   }
@@ -211,6 +202,7 @@ class _$_Update implements _Update {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Update value)? update,
+    TResult Function(_Get value)? get,
   }) {
     return update?.call(this);
   }
@@ -219,6 +211,7 @@ class _$_Update implements _Update {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Update value)? update,
+    TResult Function(_Get value)? get,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -231,11 +224,111 @@ class _$_Update implements _Update {
 abstract class _Update implements SettingsEvent {
   const factory _Update({required Settings settings}) = _$_Update;
 
-  @override
   Settings get settings;
-  @override
   @JsonKey(ignore: true)
   _$UpdateCopyWith<_Update> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$GetCopyWith<$Res> {
+  factory _$GetCopyWith(_Get value, $Res Function(_Get) then) =
+      __$GetCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$GetCopyWithImpl<$Res> extends _$SettingsEventCopyWithImpl<$Res>
+    implements _$GetCopyWith<$Res> {
+  __$GetCopyWithImpl(_Get _value, $Res Function(_Get) _then)
+      : super(_value, (v) => _then(v as _Get));
+
+  @override
+  _Get get _value => super._value as _Get;
+}
+
+/// @nodoc
+
+class _$_Get implements _Get {
+  const _$_Get();
+
+  @override
+  String toString() {
+    return 'SettingsEvent.get()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Get);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Settings settings) update,
+    required TResult Function() get,
+  }) {
+    return get();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Settings settings)? update,
+    TResult Function()? get,
+  }) {
+    return get?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Settings settings)? update,
+    TResult Function()? get,
+    required TResult orElse(),
+  }) {
+    if (get != null) {
+      return get();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Update value) update,
+    required TResult Function(_Get value) get,
+  }) {
+    return get(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Update value)? update,
+    TResult Function(_Get value)? get,
+  }) {
+    return get?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Update value)? update,
+    TResult Function(_Get value)? get,
+    required TResult orElse(),
+  }) {
+    if (get != null) {
+      return get(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Get implements SettingsEvent {
+  const factory _Get() = _$_Get;
 }
 
 /// @nodoc

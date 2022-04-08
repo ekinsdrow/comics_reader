@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:comics_reader/features/app/data/models/settings.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefClient {
@@ -14,7 +13,9 @@ class SharedPrefClient {
   Future<void> saveSettings({required Settings settings}) async {
     await sharedPreferences.setString(
       _settingsKey,
-      settings.toJson().toString(),
+      jsonEncode(
+        settings.toJson(),
+      ),
     );
   }
 

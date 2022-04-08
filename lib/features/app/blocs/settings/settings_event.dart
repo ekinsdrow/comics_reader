@@ -5,4 +5,6 @@ class SettingsEvent with _$SettingsEvent {
   const factory SettingsEvent.update({
     required Settings settings,
   }) = _Update;
+
+    const factory SettingsEvent.get() = _Get;
 }

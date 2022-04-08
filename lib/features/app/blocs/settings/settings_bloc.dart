@@ -17,19 +17,31 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
             settings: Settings.defaultValue(),
           ),
         ) {
-    on<SettingsEvent>(_update);
+    on<_Update>(_update);
+    on<_Get>(_get);
   }
 
   final ISettingsRepository settingsRepository;
 
   FutureOr<void> _update(
-    SettingsEvent event,
+    _Update event,
     Emitter<SettingsState> emit,
   ) async {
     await settingsRepository.saveSettings(settings: event.settings);
 
     emit(
       SettingsState.initial(settings: event.settings),
+    );
+  }
+
+  FutureOr<void> _get(
+    _Get event,
+    Emitter<SettingsState> emit,
+  ) async {
+    final settings = await settingsRepository.getSettings();
+
+    emit(
+      SettingsState.initial(settings: settings),
     );
   }
 }

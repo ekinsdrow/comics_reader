@@ -40,7 +40,7 @@ class AppScope extends StatelessWidget {
             create: (context) => SettingsBloc(
               settingsRepository:
                   RepositoryProvider.of<ISettingsRepository>(context),
-            ),
+            )..add(const SettingsEvent.get()),
             lazy: false,
             child: BlocListener<SettingsBloc, SettingsState>(
               listener: (context, state) => state.whenOrNull(

@@ -1,8 +1,11 @@
 import 'package:comics_reader/common/assets/constants.dart';
 import 'package:comics_reader/common/assets/images/resources.dart';
+import 'package:comics_reader/features/app/blocs/settings/settings_bloc.dart';
+import 'package:comics_reader/features/app/change_notifiers/settings_notifies.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class ComicsPage extends StatefulWidget {
   const ComicsPage({Key? key}) : super(key: key);
@@ -16,9 +19,8 @@ class _ComicsPageState extends State<ComicsPage> {
   final _scrollController = ScrollController();
   final _keyboardListnerFocusNode = FocusNode();
 
-  //TODO: save all this in shared
-  var scrollDirection = Axis.horizontal;
-  var nowScale = 1.0;
+  late Axis scrollDirection;
+  late double nowScale;
 
   void _handleKeyboard(RawKeyEvent value) {
     if (scrollDirection == Axis.horizontal) {
@@ -46,6 +48,49 @@ class _ComicsPageState extends State<ComicsPage> {
         curve: Curves.bounceIn,
       );
     }
+  }
+
+  void _updateDirection() {
+    setState(() {
+      if (scrollDirection == Axis.horizontal) {
+        scrollDirection = Axis.vertical;
+      } else {
+        scrollDirection = Axis.horizontal;
+      }
+    });
+
+    context.read<SettingsBloc>().add(
+          SettingsEvent.update(
+            settings: context.read<SettingsNotifier>().settings.copyWith(
+                  comicsDirection: scrollDirection,
+                ),
+          ),
+        );
+  }
+
+  void _updateScale() {
+    setState(() {
+      nowScale = _transformationController.value.getMaxScaleOnAxis();
+    });
+
+    context.read<SettingsBloc>().add(
+          SettingsEvent.update(
+            settings: context.read<SettingsNotifier>().settings.copyWith(
+                  scale: nowScale,
+                ),
+          ),
+        );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final settings = context.read<SettingsNotifier>().settings;
+
+    scrollDirection = settings.comicsDirection;
+
+    nowScale = settings.scale;
+    _transformationController.value.scale(nowScale);
   }
 
   @override
@@ -77,15 +122,7 @@ class _ComicsPageState extends State<ComicsPage> {
               width: Constants.mediumPadding,
             ),
             IconButton(
-              onPressed: () {
-                setState(() {
-                  if (scrollDirection == Axis.horizontal) {
-                    scrollDirection = Axis.vertical;
-                  } else {
-                    scrollDirection = Axis.horizontal;
-                  }
-                });
-              },
+              onPressed: _updateDirection,
               icon: Icon(
                 scrollDirection == Axis.horizontal
                     ? Icons.vertical_distribute
@@ -111,10 +148,7 @@ class _ComicsPageState extends State<ComicsPage> {
                 maxScale: 2,
                 transformationController: _transformationController,
                 onInteractionEnd: (_) {
-                  setState(() {
-                    nowScale =
-                        _transformationController.value.getMaxScaleOnAxis();
-                  });
+                  _updateScale();
                 },
                 child: ListView.separated(
                   controller: _scrollController,

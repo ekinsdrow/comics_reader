@@ -24,13 +24,18 @@ class _$AppRouter extends RootStackRouter {
     MainRoute.name: (routeData) {
       return AdaptivePage<dynamic>(
           routeData: routeData, child: const MainPage());
+    },
+    ComicsRoute.name: (routeData) {
+      return AdaptivePage<dynamic>(
+          routeData: routeData, child: const ComicsPage());
     }
   };
 
   @override
   List<RouteConfig> get routes => [
         RouteConfig(InitialRoute.name, path: '/'),
-        RouteConfig(MainRoute.name, path: '/main-page')
+        RouteConfig(MainRoute.name, path: '/main-page'),
+        RouteConfig(ComicsRoute.name, path: '/comics-page')
       ];
 }
 
@@ -48,4 +53,12 @@ class MainRoute extends PageRouteInfo<void> {
   const MainRoute() : super(MainRoute.name, path: '/main-page');
 
   static const String name = 'MainRoute';
+}
+
+/// generated route for
+/// [ComicsPage]
+class ComicsRoute extends PageRouteInfo<void> {
+  const ComicsRoute() : super(ComicsRoute.name, path: '/comics-page');
+
+  static const String name = 'ComicsRoute';
 }

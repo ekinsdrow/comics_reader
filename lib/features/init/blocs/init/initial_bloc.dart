@@ -20,7 +20,6 @@ class InitialBloc extends Bloc<InitialEvent, InitialState> {
   ) async {
     emit(const InitialState.loading());
 
-    //TODO: add initialization
     final path = (await getApplicationDocumentsDirectory()).path;
     final dir = Directory(path);
 

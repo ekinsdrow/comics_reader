@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:archive/archive_io.dart';
 import 'package:comics_reader/common/assets/constants.dart';
-import 'package:comics_reader/common/assets/images/resources.dart';
 import 'package:comics_reader/features/app/blocs/settings/settings_bloc.dart';
 import 'package:comics_reader/features/app/change_notifiers/settings_notifies.dart';
 import 'package:flutter/gestures.dart';
@@ -15,9 +14,11 @@ class ComicsPage extends StatefulWidget {
   const ComicsPage({
     Key? key,
     required this.file,
+    required this.images,
   }) : super(key: key);
 
   final File? file;
+  final List<File>? images;
 
   @override
   State<ComicsPage> createState() => _ComicsPageState();
@@ -94,6 +95,7 @@ class _ComicsPageState extends State<ComicsPage> {
         );
   }
 
+  //TODO: in bloc
   Future<void> _openArchieve() async {
     final inputStream = InputFileStream(widget.file!.path);
     final archive = ZipDecoder().decodeBuffer(inputStream);
@@ -133,6 +135,17 @@ class _ComicsPageState extends State<ComicsPage> {
 
     if (widget.file != null) {
       _openArchieve();
+    } else if (widget.images != null) {
+      for (var e in widget.images!) {
+        _images.add(e);
+      }
+
+      setState(() {
+        _images.sort(
+          (a, b) => a.path.compareTo(b.path),
+        );
+        loading = false;
+      });
     }
   }
 

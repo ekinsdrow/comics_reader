@@ -29,7 +29,8 @@ class _$AppRouter extends RootStackRouter {
       final args = routeData.argsAs<ComicsRouteArgs>();
       return AdaptivePage<dynamic>(
           routeData: routeData,
-          child: ComicsPage(key: args.key, file: args.file));
+          child:
+              ComicsPage(key: args.key, file: args.file, images: args.images));
     },
     SettingsRoute.name: (routeData) {
       return AdaptivePage<dynamic>(
@@ -65,23 +66,26 @@ class MainRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [ComicsPage]
 class ComicsRoute extends PageRouteInfo<ComicsRouteArgs> {
-  ComicsRoute({Key? key, required File? file})
+  ComicsRoute({Key? key, required File? file, required List<File>? images})
       : super(ComicsRoute.name,
-            path: '/comics-page', args: ComicsRouteArgs(key: key, file: file));
+            path: '/comics-page',
+            args: ComicsRouteArgs(key: key, file: file, images: images));
 
   static const String name = 'ComicsRoute';
 }
 
 class ComicsRouteArgs {
-  const ComicsRouteArgs({this.key, required this.file});
+  const ComicsRouteArgs({this.key, required this.file, required this.images});
 
   final Key? key;
 
   final File? file;
 
+  final List<File>? images;
+
   @override
   String toString() {
-    return 'ComicsRouteArgs{key: $key, file: $file}';
+    return 'ComicsRouteArgs{key: $key, file: $file, images: $images}';
   }
 }
 

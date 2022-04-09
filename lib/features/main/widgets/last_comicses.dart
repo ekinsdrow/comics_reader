@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:comics_reader/common/assets/constants.dart';
 import 'package:comics_reader/common/assets/images/resources.dart';
@@ -40,7 +38,10 @@ class _Item extends StatelessWidget {
     return GestureDetector(
       //TODO:
       onTap: () => context.router.push(
-        ComicsRoute(file: null),
+        ComicsRoute(
+          file: null,
+          images: null,
+        ),
       ),
       child: Container(
         color: Colors.transparent,

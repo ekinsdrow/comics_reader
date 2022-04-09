@@ -1,24 +1,31 @@
 import 'dart:io';
 
-import 'package:archive/archive_io.dart';
 import 'package:comics_reader/common/assets/constants.dart';
 import 'package:comics_reader/features/app/blocs/settings/settings_bloc.dart';
 import 'package:comics_reader/features/app/change_notifiers/settings_notifies.dart';
+import 'package:comics_reader/features/comics/blocs/comics/comics_bloc.dart';
+import 'package:comics_reader/features/comics/di/comics_scope.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+enum ComicsPageType {
+  cbz,
+  folder,
+}
 
 class ComicsPage extends StatefulWidget {
   const ComicsPage({
     Key? key,
     required this.file,
-    required this.images,
+    required this.path,
+    required this.type,
   }) : super(key: key);
 
   final File? file;
-  final List<File>? images;
+  final String? path;
+  final ComicsPageType type;
 
   @override
   State<ComicsPage> createState() => _ComicsPageState();
@@ -29,11 +36,8 @@ class _ComicsPageState extends State<ComicsPage> {
   final _scrollController = ScrollController();
   final _keyboardListnerFocusNode = FocusNode();
 
-  final _images = <File>[];
-
   late Axis scrollDirection;
   late double nowScale;
-  var loading = true;
 
   void _handleKeyboard(RawKeyEvent value) {
     if (scrollDirection == Axis.horizontal) {
@@ -95,34 +99,6 @@ class _ComicsPageState extends State<ComicsPage> {
         );
   }
 
-  //TODO: in bloc
-  Future<void> _openArchieve() async {
-    final inputStream = InputFileStream(widget.file!.path);
-    final archive = ZipDecoder().decodeBuffer(inputStream);
-    for (var file in archive.files) {
-      if (file.isFile) {
-        final path = (await getApplicationDocumentsDirectory()).path;
-        final filepath =
-            '$path/${widget.file!.path.split('/').last.split('.').first}';
-
-        final outputStream = OutputFileStream('$filepath/${file.name}');
-        file.writeContent(outputStream);
-        outputStream.close();
-
-        final f = File('$filepath/${file.name}');
-        _images.add(f);
-      }
-    }
-
-    setState(() {
-      _images.sort(
-        (a, b) => a.path.compareTo(b.path),
-      );
-
-      loading = false;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -132,21 +108,6 @@ class _ComicsPageState extends State<ComicsPage> {
 
     nowScale = settings.scale;
     _transformationController.value.scale(nowScale);
-
-    if (widget.file != null) {
-      _openArchieve();
-    } else if (widget.images != null) {
-      for (var e in widget.images!) {
-        _images.add(e);
-      }
-
-      setState(() {
-        _images.sort(
-          (a, b) => a.path.compareTo(b.path),
-        );
-        loading = false;
-      });
-    }
   }
 
   @override
@@ -159,14 +120,19 @@ class _ComicsPageState extends State<ComicsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      focusNode: _keyboardListnerFocusNode,
-      onKey: _handleKeyboard,
+    return ComicsScope(
+      file: widget.file,
+      path: widget.path,
+      type: widget.type,
       child: Scaffold(
         appBar: AppBar(
-
-          //TODO: name
-          title: const Text('Название'),
+          title: BlocBuilder<ComicsBloc, ComicsState>(
+            builder: (context, state) => state.when(
+              comics: (comics) => Text(comics.name),
+              error: (error) => const Text('Error'),
+              loading: () => Container(),
+            ),
+          ),
           centerTitle: false,
           actions: [
             Row(
@@ -190,11 +156,20 @@ class _ComicsPageState extends State<ComicsPage> {
           ],
         ),
         body: SafeArea(
-          child: loading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Container(
+          child: BlocBuilder<ComicsBloc, ComicsState>(
+            builder: (context, state) => state.when(
+              loading: () => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              error: (error) => Center(
+                child: Text(
+                  error,
+                ),
+              ),
+              comics: (comics) => RawKeyboardListener(
+                focusNode: _keyboardListnerFocusNode,
+                onKey: _handleKeyboard,
+                child: Container(
                   padding: const EdgeInsets.all(
                     Constants.bigPadding,
                   ),
@@ -216,9 +191,9 @@ class _ComicsPageState extends State<ComicsPage> {
                         controller: _scrollController,
                         scrollDirection: scrollDirection,
                         itemBuilder: (context, index) => _Item(
-                          file: _images[index],
+                          file: comics.images[index],
                         ),
-                        itemCount: _images.length,
+                        itemCount: comics.images.length,
                         separatorBuilder: (context, index) => SizedBox(
                           height: scrollDirection == Axis.horizontal
                               ? 0
@@ -231,6 +206,9 @@ class _ComicsPageState extends State<ComicsPage> {
                     ),
                   ),
                 ),
+              ),
+            ),
+          ),
         ),
       ),
     );

@@ -3,46 +3,27 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:comics_reader/common/assets/constants.dart';
 import 'package:comics_reader/features/app/router/router.dart';
+import 'package:comics_reader/features/comics/widgets/comics_page.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 
 class Commands extends StatelessWidget {
   const Commands({Key? key}) : super(key: key);
 
-  //TODO: logic to next screen to BLoC
   Future<void> _openDirectory({
     required BuildContext context,
   }) async {
     final dirPath = await FilePicker.platform.getDirectoryPath();
 
     if (dirPath != null) {
-      final dir = Directory(dirPath);
-
-      if (await dir.exists()) {
-        final dirFiles = await dir.list().toList();
-        final files = dirFiles.whereType<File>();
-
-        final images = <File>[];
-
-        for (var file in files) {
-          final ext = extension(file.path);
-          if (ext == '.jpg' ||
-              ext == '.jpeg' ||
-              ext == '.png' ||
-              ext == '.gif') {
-            images.add(file);
-          }
-        }
-
-        context.router.push(
-          ComicsRoute(
-            file: null,
-            images: images,
-          ),
-        );
-      }
+      context.router.push(
+        ComicsRoute(
+          file: null,
+          type: ComicsPageType.folder,
+          path: dirPath,
+        ),
+      );
     }
   }
 
@@ -65,7 +46,8 @@ class Commands extends StatelessWidget {
         context.router.push(
           ComicsRoute(
             file: file,
-            images: null,
+            path: null,
+            type: ComicsPageType.cbz,
           ),
         );
       }

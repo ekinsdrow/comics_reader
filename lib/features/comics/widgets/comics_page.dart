@@ -164,6 +164,8 @@ class _ComicsPageState extends State<ComicsPage> {
       onKey: _handleKeyboard,
       child: Scaffold(
         appBar: AppBar(
+
+          //TODO: name
           title: const Text('Название'),
           centerTitle: false,
           actions: [

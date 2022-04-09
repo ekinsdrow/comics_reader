@@ -69,6 +69,7 @@ class _Item extends StatelessWidget {
               height: Constants.smallPadding,
             ),
             const Text(
+              //TODO:name
               'Название',
               style: TextStyle(
                 fontSize: 20,

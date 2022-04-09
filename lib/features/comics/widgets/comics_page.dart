@@ -135,6 +135,8 @@ class _ComicsPageState extends State<ComicsPage> {
           ),
           centerTitle: false,
           actions: [
+
+            //TODO: add page counts
             Row(
               children: [
                 Text(

@@ -1,7 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:comics_reader/common/assets/constants.dart';
 import 'package:comics_reader/common/assets/images/resources.dart';
-import 'package:comics_reader/features/app/router/router.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -36,9 +34,8 @@ class _Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.router.push(
-        const ComicsRoute(),
-      ),
+      //TODO:
+      onTap: (){},
       child: Container(
         color: Colors.transparent,
         child: Column(
@@ -65,6 +62,7 @@ class _Item extends StatelessWidget {
               height: Constants.smallPadding,
             ),
             const Text(
+              //TODO:name
               'Название',
               style: TextStyle(
                 fontSize: 20,

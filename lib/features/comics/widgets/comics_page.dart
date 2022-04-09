@@ -1,14 +1,31 @@
+import 'dart:io';
+
 import 'package:comics_reader/common/assets/constants.dart';
-import 'package:comics_reader/common/assets/images/resources.dart';
 import 'package:comics_reader/features/app/blocs/settings/settings_bloc.dart';
 import 'package:comics_reader/features/app/change_notifiers/settings_notifies.dart';
+import 'package:comics_reader/features/comics/blocs/comics/comics_bloc.dart';
+import 'package:comics_reader/features/comics/di/comics_scope.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+enum ComicsPageType {
+  cbz,
+  folder,
+}
 
 class ComicsPage extends StatefulWidget {
-  const ComicsPage({Key? key}) : super(key: key);
+  const ComicsPage({
+    Key? key,
+    required this.file,
+    required this.path,
+    required this.type,
+  }) : super(key: key);
+
+  final File? file;
+  final String? path;
+  final ComicsPageType type;
 
   @override
   State<ComicsPage> createState() => _ComicsPageState();
@@ -103,12 +120,19 @@ class _ComicsPageState extends State<ComicsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      focusNode: _keyboardListnerFocusNode,
-      onKey: _handleKeyboard,
+    return ComicsScope(
+      file: widget.file,
+      path: widget.path,
+      type: widget.type,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Название'),
+          title: BlocBuilder<ComicsBloc, ComicsState>(
+            builder: (context, state) => state.when(
+              comics: (comics) => Text(comics.name),
+              error: (error) => const Text('Error'),
+              loading: () => Container(),
+            ),
+          ),
           centerTitle: false,
           actions: [
             Row(
@@ -132,38 +156,54 @@ class _ComicsPageState extends State<ComicsPage> {
           ],
         ),
         body: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.all(
-              Constants.bigPadding,
-            ),
-            child: ScrollConfiguration(
-              behavior: ScrollConfiguration.of(context).copyWith(
-                dragDevices: {
-                  PointerDeviceKind.mouse,
-                  PointerDeviceKind.touch,
-                },
+          child: BlocBuilder<ComicsBloc, ComicsState>(
+            builder: (context, state) => state.when(
+              loading: () => const Center(
+                child: CircularProgressIndicator(),
               ),
-              child: InteractiveViewer(
-                minScale: 1,
-                maxScale: 2,
-                transformationController: _transformationController,
-                onInteractionEnd: (_) {
-                  _updateScale();
-                },
-                child: ListView.separated(
-                  controller: _scrollController,
-                  scrollDirection: scrollDirection,
-                  itemBuilder: (context, index) => const _Item(
-                    imagePath: JpgPath.comicsImage,
+              error: (error) => Center(
+                child: Text(
+                  error,
+                ),
+              ),
+              comics: (comics) => RawKeyboardListener(
+                focusNode: _keyboardListnerFocusNode,
+                onKey: _handleKeyboard,
+                child: Container(
+                  padding: const EdgeInsets.all(
+                    Constants.bigPadding,
                   ),
-                  itemCount: 100,
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: scrollDirection == Axis.horizontal
-                        ? 0
-                        : Constants.mediumPadding,
-                    width: scrollDirection == Axis.vertical
-                        ? 0
-                        : Constants.mediumPadding,
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context).copyWith(
+                      dragDevices: {
+                        PointerDeviceKind.mouse,
+                        PointerDeviceKind.touch,
+                      },
+                    ),
+                    child: InteractiveViewer(
+                      minScale: 1,
+                      maxScale: 2,
+                      transformationController: _transformationController,
+                      onInteractionEnd: (_) {
+                        _updateScale();
+                      },
+                      child: ListView.separated(
+                        controller: _scrollController,
+                        scrollDirection: scrollDirection,
+                        itemBuilder: (context, index) => _Item(
+                          file: comics.images[index],
+                        ),
+                        itemCount: comics.images.length,
+                        separatorBuilder: (context, index) => SizedBox(
+                          height: scrollDirection == Axis.horizontal
+                              ? 0
+                              : Constants.mediumPadding,
+                          width: scrollDirection == Axis.vertical
+                              ? 0
+                              : Constants.mediumPadding,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -177,16 +217,16 @@ class _ComicsPageState extends State<ComicsPage> {
 
 class _Item extends StatelessWidget {
   const _Item({
-    required this.imagePath,
+    required this.file,
     Key? key,
   }) : super(key: key);
 
-  final String imagePath;
+  final File file;
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      imagePath,
+    return Image.file(
+      file,
       fit: BoxFit.cover,
     );
   }

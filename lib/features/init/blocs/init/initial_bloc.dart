@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'initial_event.dart';
 part 'initial_state.dart';
@@ -18,10 +20,12 @@ class InitialBloc extends Bloc<InitialEvent, InitialState> {
   ) async {
     emit(const InitialState.loading());
 
-    //TODO: add initialization
-    await Future.delayed(
-      const Duration(milliseconds: 500),
-    );
+    final path = (await getApplicationDocumentsDirectory()).path;
+    final dir = Directory(path);
+
+    if (await dir.exists()) {
+      await dir.delete(recursive: true);
+    }
 
     emit(const InitialState.success());
   }

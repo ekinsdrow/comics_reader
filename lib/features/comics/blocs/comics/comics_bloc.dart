@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:archive/archive_io.dart';
 import 'package:bloc/bloc.dart';
 import 'package:comics_reader/features/app/blocs/last_comics/last_comics_bloc.dart';
+import 'package:comics_reader/features/app/data/models/last_comics.dart';
 import 'package:comics_reader/features/comics/models/comics.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:path/path.dart';
@@ -53,6 +54,11 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
 
       images.sort(
         (a, b) => a.path.compareTo(b.path),
+      );
+
+      _saveLastComics(
+        image: images.first,
+        name: comicsName,
       );
 
       emit(
@@ -108,10 +114,17 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
             ),
           );
         } else {
+          final name = dir.path.split('/').last;
+
+          _saveLastComics(
+            image: images.first,
+            name: name,
+          );
+
           emit(
             ComicsState.comics(
               comics: Comics(
-                name: dir.path.split('/').last,
+                name: name,
                 images: images,
               ),
             ),
@@ -129,5 +142,20 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
         ComicsState.error(error: 'Error $e'),
       );
     }
+  }
+
+  void _saveLastComics({
+    required File image,
+    required String name,
+  }) {
+    lastComicsBloc.add(
+      LastComicsEvent.saveComics(
+        comics: LastComics(
+          date: DateTime.now(),
+          name: name,
+          image: image.readAsBytesSync(),
+        ),
+      ),
+    );
   }
 }

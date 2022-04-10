@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:comics_reader/common/assets/constants.dart';
 import 'package:comics_reader/common/assets/images/resources.dart';
 import 'package:comics_reader/features/app/blocs/last_comics/last_comics_bloc.dart';
@@ -73,9 +75,9 @@ class _Item extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(4),
-                    image: const DecorationImage(
-                      image: AssetImage(
-                        JpgPath.comicsImage,
+                    image: DecorationImage(
+                      image: FileImage(
+                        File.fromRawPath(lastComics.image),
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -86,10 +88,9 @@ class _Item extends StatelessWidget {
             const SizedBox(
               height: Constants.smallPadding,
             ),
-            const Text(
-              //TODO:name
-              'Название',
-              style: TextStyle(
+            Text(
+              lastComics.name,
+              style: const TextStyle(
                 fontSize: 20,
               ),
             ),

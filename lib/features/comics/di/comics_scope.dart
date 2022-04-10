@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:comics_reader/features/app/blocs/last_comics/last_comics_bloc.dart';
 import 'package:comics_reader/features/comics/blocs/comics/comics_bloc.dart';
 import 'package:comics_reader/features/comics/widgets/comics_page.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,9 @@ class ComicsScope extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ComicsBloc()
+      create: (context) => ComicsBloc(
+        lastComicsBloc: context.read<LastComicsBloc>(),
+      )
         ..add(
           type == ComicsPageType.folder
               ? ComicsEvent.openFolder(path: path!)

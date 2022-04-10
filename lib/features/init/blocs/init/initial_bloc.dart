@@ -21,7 +21,7 @@ class InitialBloc extends Bloc<InitialEvent, InitialState> {
     emit(const InitialState.loading());
 
     final path = (await getApplicationDocumentsDirectory()).path;
-    final dir = Directory(path);
+    final dir = Directory('$path/comicses');
 
     if (await dir.exists()) {
       await dir.delete(recursive: true);

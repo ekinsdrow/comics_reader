@@ -1,7 +1,10 @@
 import 'package:comics_reader/common/assets/constants.dart';
 import 'package:comics_reader/common/assets/images/resources.dart';
+import 'package:comics_reader/features/app/blocs/last_comics/last_comics_bloc.dart';
+import 'package:comics_reader/features/app/data/models/last_comics.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LastComicses extends StatelessWidget {
   const LastComicses({Key? key}) : super(key: key);
@@ -15,13 +18,29 @@ class LastComicses extends StatelessWidget {
           PointerDeviceKind.touch,
         },
       ),
-      child: ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        itemCount: 100,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => const _Item(),
-        separatorBuilder: (context, index) => const SizedBox(
-          width: Constants.mediumPadding,
+      child: BlocBuilder<LastComicsBloc, LastComicsState>(
+        builder: (context, state) => state.when(
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (error) => Center(
+            child: Text(error),
+          ),
+          comicses: (comicses) => comicses.isEmpty
+              ? const Center(
+                  child: Text('Don\'t have last comicses'),
+                )
+              : ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: comicses.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => _Item(
+                    lastComics: comicses[index],
+                  ),
+                  separatorBuilder: (context, index) => const SizedBox(
+                    width: Constants.mediumPadding,
+                  ),
+                ),
         ),
       ),
     );
@@ -29,13 +48,19 @@ class LastComicses extends StatelessWidget {
 }
 
 class _Item extends StatelessWidget {
-  const _Item({Key? key}) : super(key: key);
+  const _Item({
+    required this.lastComics,
+    Key? key,
+  }) : super(key: key);
+
+  final LastComics lastComics;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      //TODO:
-      onTap: (){},
+      onTap: () {
+        //TODO:
+      },
       child: Container(
         color: Colors.transparent,
         child: Column(

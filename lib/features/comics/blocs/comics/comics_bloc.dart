@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:archive/archive_io.dart';
 import 'package:bloc/bloc.dart';
+import 'package:comics_reader/features/app/blocs/last_comics/last_comics_bloc.dart';
 import 'package:comics_reader/features/comics/models/comics.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:path/path.dart';
@@ -13,10 +14,14 @@ part 'comics_state.dart';
 part 'comics_bloc.freezed.dart';
 
 class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
-  ComicsBloc() : super(const _Loading()) {
+  ComicsBloc({
+    required this.lastComicsBloc,
+  }) : super(const _Loading()) {
     on<_OpenCBZ>(_openCBZ);
     on<_OpenFolder>(_openFolder);
   }
+
+  final LastComicsBloc lastComicsBloc;
 
   FutureOr<void> _openCBZ(
     _OpenCBZ event,
@@ -33,7 +38,8 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
       final comicsName = event.file.path.split('/').last.split('.').first;
       for (var file in archive.files) {
         if (file.isFile) {
-          final path = (await getApplicationDocumentsDirectory()).path;
+          final path =
+              (await getApplicationDocumentsDirectory()).path + '/comicses';
           final filepath = '$path/$comicsName';
 
           final outputStream = OutputFileStream('$filepath/${file.name}');

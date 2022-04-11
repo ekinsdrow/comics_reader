@@ -13,17 +13,21 @@ class LastComicsesDbClient {
 
   Future<List<LastComics>> getLastComicses() async {
     final comicsesMap = await db.rawQuery(
-      'SELECT * FROM $_tableName ORDER BY dateTime DESC',
+      'SELECT DISTINCT * FROM $_tableName ORDER BY dateTime DESC',
     );
     if (comicsesMap.isEmpty) {
       return [];
     }
 
     final comicses = <LastComics>[];
+    final paths = <String>{};
 
     for (final c in comicsesMap) {
       final comics = LastComics.fromMap(c);
-      comicses.add(comics);
+
+      if (paths.add(comics.path)) {
+        comicses.add(comics);
+      }
     }
 
     return comicses;

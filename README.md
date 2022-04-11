@@ -13,4 +13,6 @@ Simple app for reading comics on desktop and mobile platforms.
 3. Desktop
 
 ## Screenshots:
-![Screenshot_1649670091](https://user-images.githubusercontent.com/23215601/162712185-8f1c3055-659f-4f1f-9dd9-090056f7f256.png) ![Screenshot_1649670094](https://user-images.githubusercontent.com/23215601/162712199-fc07306e-c865-4acd-84ce-c4ef23631dcc.png)
+
+![162712185-8f1c3055-659f-4f1f-9dd9-090056f7f256](https://user-images.githubusercontent.com/23215601/162713124-e2f20e24-1637-4b43-aec0-eefdc55324f5.png)
+![162712199-fc07306e-c865-4acd-84ce-c4ef23631dcc](https://user-images.githubusercontent.com/23215601/162713160-5a3465a7-0d88-4ab0-a2d6-924c4a48976d.png)

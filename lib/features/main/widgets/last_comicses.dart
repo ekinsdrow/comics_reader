@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:comics_reader/common/assets/constants.dart';
 import 'package:comics_reader/features/app/blocs/last_comics/last_comics_bloc.dart';
+import 'package:comics_reader/features/app/data/models/comics_type.dart';
 import 'package:comics_reader/features/app/data/models/last_comics.dart';
+import 'package:comics_reader/features/app/router/router.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +63,17 @@ class _Item extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //TODO:
+        context.router.push(
+          ComicsRoute(
+            file: lastComics.comicsType == ComicsType.cbz
+                ? File(lastComics.path)
+                : null,
+            path: lastComics.comicsType == ComicsType.folder
+                ? lastComics.path
+                : null,
+            type: lastComics.comicsType,
+          ),
+        );
       },
       child: Container(
         color: Colors.transparent,
@@ -75,8 +88,8 @@ class _Item extends StatelessWidget {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(4),
                     image: DecorationImage(
-                      image: FileImage(
-                        File.fromRawPath(lastComics.image),
+                      image: MemoryImage(
+                        lastComics.image,
                       ),
                       fit: BoxFit.cover,
                     ),

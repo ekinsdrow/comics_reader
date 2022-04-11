@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:archive/archive_io.dart';
 import 'package:bloc/bloc.dart';
 import 'package:comics_reader/features/app/blocs/last_comics/last_comics_bloc.dart';
+import 'package:comics_reader/features/app/data/models/comics_type.dart';
 import 'package:comics_reader/features/app/data/models/last_comics.dart';
 import 'package:comics_reader/features/comics/models/comics.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -59,6 +60,8 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
       _saveLastComics(
         image: images.first,
         name: comicsName,
+        comicsType: ComicsType.cbz,
+        path: event.file.path,
       );
 
       emit(
@@ -119,6 +122,8 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
           _saveLastComics(
             image: images.first,
             name: name,
+            comicsType: ComicsType.folder,
+            path: dir.path,
           );
 
           emit(
@@ -147,6 +152,8 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
   void _saveLastComics({
     required File image,
     required String name,
+    required ComicsType comicsType,
+    required String path,
   }) {
     lastComicsBloc.add(
       LastComicsEvent.saveComics(
@@ -154,6 +161,8 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
           date: DateTime.now(),
           name: name,
           image: image.readAsBytesSync(),
+          comicsType: comicsType,
+          path: path,
         ),
       ),
     );

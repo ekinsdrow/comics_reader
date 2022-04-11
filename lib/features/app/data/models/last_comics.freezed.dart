@@ -20,11 +20,15 @@ class _$LastComicsTearOff {
   _LastComics call(
       {required String name,
       required Uint8List image,
-      required DateTime date}) {
+      required DateTime date,
+      required String path,
+      required ComicsType comicsType}) {
     return _LastComics(
       name: name,
       image: image,
       date: date,
+      path: path,
+      comicsType: comicsType,
     );
   }
 }
@@ -37,6 +41,8 @@ mixin _$LastComics {
   String get name => throw _privateConstructorUsedError;
   Uint8List get image => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
+  ComicsType get comicsType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LastComicsCopyWith<LastComics> get copyWith =>
@@ -48,7 +54,12 @@ abstract class $LastComicsCopyWith<$Res> {
   factory $LastComicsCopyWith(
           LastComics value, $Res Function(LastComics) then) =
       _$LastComicsCopyWithImpl<$Res>;
-  $Res call({String name, Uint8List image, DateTime date});
+  $Res call(
+      {String name,
+      Uint8List image,
+      DateTime date,
+      String path,
+      ComicsType comicsType});
 }
 
 /// @nodoc
@@ -64,6 +75,8 @@ class _$LastComicsCopyWithImpl<$Res> implements $LastComicsCopyWith<$Res> {
     Object? name = freezed,
     Object? image = freezed,
     Object? date = freezed,
+    Object? path = freezed,
+    Object? comicsType = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -78,6 +91,14 @@ class _$LastComicsCopyWithImpl<$Res> implements $LastComicsCopyWith<$Res> {
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      comicsType: comicsType == freezed
+          ? _value.comicsType
+          : comicsType // ignore: cast_nullable_to_non_nullable
+              as ComicsType,
     ));
   }
 }
@@ -88,7 +109,12 @@ abstract class _$LastComicsCopyWith<$Res> implements $LastComicsCopyWith<$Res> {
           _LastComics value, $Res Function(_LastComics) then) =
       __$LastComicsCopyWithImpl<$Res>;
   @override
-  $Res call({String name, Uint8List image, DateTime date});
+  $Res call(
+      {String name,
+      Uint8List image,
+      DateTime date,
+      String path,
+      ComicsType comicsType});
 }
 
 /// @nodoc
@@ -106,6 +132,8 @@ class __$LastComicsCopyWithImpl<$Res> extends _$LastComicsCopyWithImpl<$Res>
     Object? name = freezed,
     Object? image = freezed,
     Object? date = freezed,
+    Object? path = freezed,
+    Object? comicsType = freezed,
   }) {
     return _then(_LastComics(
       name: name == freezed
@@ -120,6 +148,14 @@ class __$LastComicsCopyWithImpl<$Res> extends _$LastComicsCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      comicsType: comicsType == freezed
+          ? _value.comicsType
+          : comicsType // ignore: cast_nullable_to_non_nullable
+              as ComicsType,
     ));
   }
 }
@@ -127,7 +163,12 @@ class __$LastComicsCopyWithImpl<$Res> extends _$LastComicsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LastComics extends _LastComics {
-  _$_LastComics({required this.name, required this.image, required this.date})
+  _$_LastComics(
+      {required this.name,
+      required this.image,
+      required this.date,
+      required this.path,
+      required this.comicsType})
       : super._();
 
   @override
@@ -136,10 +177,14 @@ class _$_LastComics extends _LastComics {
   final Uint8List image;
   @override
   final DateTime date;
+  @override
+  final String path;
+  @override
+  final ComicsType comicsType;
 
   @override
   String toString() {
-    return 'LastComics(name: $name, image: $image, date: $date)';
+    return 'LastComics(name: $name, image: $image, date: $date, path: $path, comicsType: $comicsType)';
   }
 
   @override
@@ -149,11 +194,15 @@ class _$_LastComics extends _LastComics {
             other is _LastComics &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.image, image) || other.image == image) &&
-            (identical(other.date, date) || other.date == date));
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.comicsType, comicsType) ||
+                other.comicsType == comicsType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, image, date);
+  int get hashCode =>
+      Object.hash(runtimeType, name, image, date, path, comicsType);
 
   @JsonKey(ignore: true)
   @override
@@ -165,7 +214,9 @@ abstract class _LastComics extends LastComics {
   factory _LastComics(
       {required String name,
       required Uint8List image,
-      required DateTime date}) = _$_LastComics;
+      required DateTime date,
+      required String path,
+      required ComicsType comicsType}) = _$_LastComics;
   _LastComics._() : super._();
 
   @override
@@ -174,6 +225,10 @@ abstract class _LastComics extends LastComics {
   Uint8List get image;
   @override
   DateTime get date;
+  @override
+  String get path;
+  @override
+  ComicsType get comicsType;
   @override
   @JsonKey(ignore: true)
   _$LastComicsCopyWith<_LastComics> get copyWith =>

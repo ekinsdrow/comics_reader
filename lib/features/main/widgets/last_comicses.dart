@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:comics_reader/common/assets/constants.dart';
-import 'package:comics_reader/common/assets/images/resources.dart';
 import 'package:comics_reader/features/app/blocs/last_comics/last_comics_bloc.dart';
 import 'package:comics_reader/features/app/data/models/last_comics.dart';
 import 'package:flutter/gestures.dart';

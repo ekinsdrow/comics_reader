@@ -15,9 +15,7 @@ void main() async {
     onCreate: (db, version) async {
       await db.execute(
          // ignore: lines_longer_than_80_chars
-
-         //TODO: path and type
-        'CREATE TABLE LastComicses (id INTEGER PRIMARY KEY, name TEXT, image BLOB, dateTime INTEGER)',
+        'CREATE TABLE LastComicses (id INTEGER PRIMARY KEY, name TEXT, image BLOB, dateTime INTEGER, path TEXT, type INTEGER)',
       );
     },
   );

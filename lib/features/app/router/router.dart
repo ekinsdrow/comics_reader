@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:comics_reader/features/app/data/models/comics_type.dart';
 import 'package:comics_reader/features/comics/widgets/comics_page.dart';
 import 'package:comics_reader/features/init/widgets/initial_page.dart';
 import 'package:comics_reader/features/main/widgets/main_page.dart';

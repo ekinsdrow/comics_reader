@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-
 class ComicsPage extends StatefulWidget {
   const ComicsPage({
     Key? key,
@@ -150,7 +148,7 @@ class _ComicsPageState extends State<ComicsPage> {
                 scrollDirection == Axis.horizontal
                     ? Icons.vertical_distribute
                     : Icons.horizontal_distribute,
-              ),huy42
+              ),
             ),
           ],
         ),

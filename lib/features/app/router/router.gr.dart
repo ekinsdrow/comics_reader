@@ -73,7 +73,7 @@ class ComicsRoute extends PageRouteInfo<ComicsRouteArgs> {
       {Key? key,
       required File? file,
       required String? path,
-      required ComicsPageType type})
+      required ComicsType type})
       : super(ComicsRoute.name,
             path: '/comics-page',
             args:
@@ -92,7 +92,7 @@ class ComicsRouteArgs {
 
   final String? path;
 
-  final ComicsPageType type;
+  final ComicsType type;
 
   @override
   String toString() {

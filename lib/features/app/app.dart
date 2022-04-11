@@ -6,19 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
 
 class App extends StatelessWidget {
   App({
     required this.sharedPreferences,
+    required this.database,
     Key? key,
   }) : super(key: key);
 
   final _router = AppRouter();
   final SharedPreferences sharedPreferences;
+  final Database database;
+
 
   @override
   Widget build(BuildContext context) {
     return AppScope(
+      database: database,
       sharedPreferences: sharedPreferences,
       child: Builder(
         builder: (context) {

@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:comics_reader/common/assets/constants.dart';
+import 'package:comics_reader/features/app/data/models/comics_type.dart';
 import 'package:comics_reader/features/app/router/router.dart';
-import 'package:comics_reader/features/comics/widgets/comics_page.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class Commands extends StatelessWidget {
       context.router.push(
         ComicsRoute(
           file: null,
-          type: ComicsPageType.folder,
+          type: ComicsType.folder,
           path: dirPath,
         ),
       );
@@ -47,7 +47,7 @@ class Commands extends StatelessWidget {
           ComicsRoute(
             file: file,
             path: null,
-            type: ComicsPageType.cbz,
+            type: ComicsType.cbz,
           ),
         );
       }

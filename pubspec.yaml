@@ -39,6 +39,7 @@ dependencies:
 
   #Storages
   shared_preferences: ^2.0.13
+  sqflite: ^2.0.2
 
 
   flutter_localizations:

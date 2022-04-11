@@ -3,17 +3,13 @@ import 'dart:io';
 import 'package:comics_reader/common/assets/constants.dart';
 import 'package:comics_reader/features/app/blocs/settings/settings_bloc.dart';
 import 'package:comics_reader/features/app/change_notifiers/settings_notifies.dart';
+import 'package:comics_reader/features/app/data/models/comics_type.dart';
 import 'package:comics_reader/features/comics/blocs/comics/comics_bloc.dart';
 import 'package:comics_reader/features/comics/di/comics_scope.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-enum ComicsPageType {
-  cbz,
-  folder,
-}
 
 class ComicsPage extends StatefulWidget {
   const ComicsPage({
@@ -25,7 +21,7 @@ class ComicsPage extends StatefulWidget {
 
   final File? file;
   final String? path;
-  final ComicsPageType type;
+  final ComicsType type;
 
   @override
   State<ComicsPage> createState() => _ComicsPageState();
@@ -135,7 +131,6 @@ class _ComicsPageState extends State<ComicsPage> {
           ),
           centerTitle: false,
           actions: [
-
             //TODO: add page counts
             Row(
               children: [

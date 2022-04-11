@@ -43,5 +43,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Get Image sotr comicses</string>	
+	<key>UISupportsDocumentBrowser</key>
+	<true/>	
+	<key>UIBackgroundModes</key>
+	<array>	
+   		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

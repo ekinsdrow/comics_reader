@@ -11,6 +11,8 @@ class LastComicsesDbClient {
     required this.db,
   });
 
+
+  //TODO: get unique comicses with SQL
   Future<List<LastComics>> getLastComicses() async {
     final comicsesMap = await db.rawQuery(
       'SELECT DISTINCT * FROM $_tableName ORDER BY dateTime DESC',

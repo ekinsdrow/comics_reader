@@ -101,7 +101,9 @@ class _Item extends StatelessWidget {
               height: Constants.smallPadding,
             ),
             Text(
-              lastComics.name,
+              lastComics.name.length > 22
+                  ? lastComics.name.substring(0, 21)
+                  : lastComics.name,
               style: const TextStyle(
                 fontSize: 20,
               ),
